@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, Image, Button} from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity, Image, KeyboardAvoidingView} from 'react-native';
 import { SimpleLineIcons, Fontisto, EvilIcons, Ionicons, MaterialIcons } from '@expo/vector-icons'; 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,6 +10,13 @@ const emailRender = ({ item }) => (
 
 function HomeScreen({ navigation }) {
   return (
+    <>
+     <KeyboardAvoidingView
+    keyboardVerticalOffset={0}
+    behavior='padding'
+    style={{ flex: 1 }}
+    enabled= { Platform.OS == 'ios'}
+    >
     <View style={styles.container}>
       <View style={styles.form}>
       <TextInput style={styles.textinput}
@@ -54,6 +61,8 @@ function HomeScreen({ navigation }) {
       </View>
 
     </View>
+    </KeyboardAvoidingView>
+    </>
   )
 }
 
@@ -93,7 +102,7 @@ const Item = ({ title, email, sender }) => (
             uri: 'https://thumbs.dreamstime.com/b/%C3%ADcone-no-estilo-liso-do-usu%C3%A1rio-da-pessoa-para-site-ilustra%C3%A7%C3%A3o-vetor-129831161.jpg',
           }}
         />
-
+  
   <View style={styles.emailVert}> 
   <Text style={{fontWeight:'bold', fontSize:16}}>{sender}</Text>
   <Text style={{fontWeight:'bold', fontSize:14}}>{title}</Text>
@@ -105,14 +114,13 @@ const Item = ({ title, email, sender }) => (
 
 export default function App() {
   return (
-    <>
+  
   <NavigationContainer style={{backgroundColor:'#FFFFFF'}}>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="E-mail" component={HomeScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
-     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
